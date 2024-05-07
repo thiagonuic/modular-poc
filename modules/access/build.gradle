@@ -1,0 +1,27 @@
+plugins {
+	id 'core.java-conventions'
+}
+
+group = 'sample'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation project(path: ':modules:core')
+
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+bootRun {
+	enabled = false
+}

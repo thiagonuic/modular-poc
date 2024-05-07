@@ -1,0 +1,14 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+    plugins {
+        id 'dev.hilla' version "${hillaVersion}"
+    }
+}
+
+rootProject.name = 'modular-poc'
+
+include 'modules:app'
+include 'modules:core'
+include 'modules:access'

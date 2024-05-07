@@ -1,0 +1,62 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		maven { setUrl("https://maven.vaadin.com/vaadin-prereleases") }
+		maven { setUrl("https://repo.spring.io/milestone") }
+	}
+}
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.2'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id 'dev.hilla' version "$hillaVersion"
+}
+
+group = 'sample'
+version = '0.0.1-SNAPSHOT'
+java {
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
+
+repositories {
+	mavenCentral()
+	maven { setUrl("https://maven.vaadin.com/vaadin-prereleases") }
+	maven { setUrl("https://repo.spring.io/milestone") }
+	maven { setUrl("https://maven.vaadin.com/vaadin-addons") }
+}
+
+dependencies {
+	implementation project(path: ':modules:app')
+	implementation project(path: ':modules:core')
+	implementation project(path: ':modules:access')
+
+	implementation 'dev.hilla:hilla-react-spring-boot-starter'
+	implementation 'dev.hilla:hilla-react'
+	implementation 'org.parttio:line-awesome:2.0.0'
+
+	implementation 'net.bull.javamelody:javamelody-spring-boot-starter:2.1.0'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "dev.hilla:hilla-bom:$hillaVersion"
+	}
+}
+
+hilla {
+	exposedPackagesToParser = ["sample.module.access"]
+}
+
+bootRun {
+	mainClass.set("sample.app.CoreApplication")
+}
+
+bootJar {
+	manifest {
+		attributes 'Start-Class': 'sample.app.CoreApplication'
+	}
+}
